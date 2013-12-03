@@ -24,13 +24,14 @@
 		<copy file="README" todir="dist/WorldWindVR" overwrite="true"/>	
 		<copy file="export/WorldwindVR.jar" todir="dist/WorldWindVR/lib" overwrite="true"/>	
 		<copy file="RunWorldwindVR.bat" todir="dist/WorldWindVR" overwrite="true"/>	
+		<copy file="RunWorldwindVR.sh" todir="dist/WorldWindVR" overwrite="true"/>	
 		
 		<!-- copy all files in to the appropriate deployment directories -->
 		<copy todir="dist/WorldWindVR/lib" overwrite="true">
 			<fileset dir="lib" includes="*.jar"/>
 		</copy>	
 		<copy todir="dist/WorldWindVR/native_libraries" overwrite="true">
-			<fileset dir="native_libraries" includes="*.dll"/>
+			<fileset dir="native_libraries" />
 		</copy>			
 		<zip destfile="WorldWindVR.zip"
 		       basedir="dist"
