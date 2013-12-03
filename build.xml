@@ -1,5 +1,20 @@
-<project name="worldwind-vr" basedir=".">
+<project name="worldwind-vr" basedir="." default="buildDistribution">
 	
+	<property name="classes.dir" value="bin"/>
+	<property name="src.dir" value="src"/>
+	<property name="debug" value="false"/>
+
+	<path id="cp">
+		<fileset dir="lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="compile" description="Compile main sources.">
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="${debug}" classpathref="cp" source="1.6" target="1.6" />
+	</target>
+
 	<target name="buildDistribution" depends="export">
 		<property file="maia.properties"/>
 		<mkdir dir="dist" />
@@ -25,10 +40,10 @@
 	</target>
 	
 	<!-- Export the WorldwindVR.jar -->
-	<target name="export">
+	<target name="export" depends="compile">
 		<mkdir dir="export" />
 		<jar jarfile="export/WorldwindVR.jar">
-			<fileset dir="bin" excludes="test/**" />
+			<fileset dir="${classes.dir}" excludes="test/**" />
 		</jar>
 	</target>
 	
