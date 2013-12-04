@@ -18,7 +18,8 @@ public class WorldWindVRKeyboardListener implements KeyListener {
 		this.vrFrame = vrFrame;
 
 		//camera speeds that the user can switch through with the shift key
-		cameraSpeeds.add(new CameraSpeed(2.0, "Slow"));
+		cameraSpeeds.add(new CameraSpeed(0.1, "Very Slow"));
+		cameraSpeeds.add(new CameraSpeed(1.0, "Slow"));
 		cameraSpeeds.add(new CameraSpeed(7.0, "Medium"));
 		cameraSpeeds.add(new CameraSpeed(12.0, "Fast"));
 
