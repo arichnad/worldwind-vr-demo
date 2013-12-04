@@ -4,17 +4,17 @@ import gov.nasa.worldwind.BasicModel;
 import gov.nasa.worldwind.Configuration;
 import gov.nasa.worldwind.Version;
 import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
-import gov.nasa.worldwind.geom.Angle;
-import gov.nasa.worldwind.geom.LatLon;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.layers.Layer;
+import gov.nasa.worldwindx.examples.util.BalloonController;
+import gov.nasa.worldwindx.examples.util.HotSpotController;
 
 import java.awt.Frame;
+import java.awt.event.MouseListener;
 
 import javax.swing.UIManager;
 
 import com.jogamp.opengl.util.FPSAnimator;
-import com.tuohy.worldwindvr.input.SampleGeographicLocation;
 import com.tuohy.worldwindvr.input.VRFlyView;
 import com.tuohy.worldwindvr.input.WorldWindVRKeyboardListener;
 import com.tuohy.worldwindvr.input.WorldwindVRMouseListener;
@@ -46,6 +46,8 @@ public class WorldWindVR extends Frame{
 	
 	//contains the locations that the user can rotate through
 	SampleLocationsProvider sampleLocationsProvider = new SampleLocationsProvider();
+	HotSpotController hotSpotController;
+    BalloonController balloonController;
 
 	public WorldWindVR(){
 		super("WorldWindVR");
@@ -67,7 +69,8 @@ public class WorldWindVR extends Frame{
 		WorldWindVRKeyboardListener vrkbl = new WorldWindVRKeyboardListener(this);
 		wwd.addKeyListener(vrkbl);
 				
-		wwd.addMouseMotionListener(new WorldwindVRMouseListener(this));
+		//wwd.addMouseMotionListener(new WorldwindVRMouseListener(this));
+		//wwd.addMouseListener(arg0);
 		
 		//TODO: For some reason Bing Imagerly layer MURDERS frame rate, but 
 		//the virtual earth aerial imagery does not (although much of the imagery
@@ -98,6 +101,11 @@ public class WorldWindVR extends Frame{
 		}
 		
 		//prepare annotations layer
+		 // Add a controller to send input events to BrowserBalloons.
+        hotSpotController = new HotSpotController(wwd);
+        // Add a controller to handle link and navigation events in BrowserBalloons.
+        balloonController = new BalloonController(wwd);
+
 		annotationsLayer = new VRAnnotationsLayer();
 		wwd.getModel().getLayers().add(annotationsLayer);
 		robot = new PrecacheRobot(vrkbl, this);
@@ -117,6 +125,12 @@ public class WorldWindVR extends Frame{
 		//set up a reasonable initial camera orientation and globe location.
 		viewToLocation(this.sampleLocationsProvider.getNextLocation().getPosition());
         
+		MouseListener[] ml = wwd.getMouseListeners();
+		System.out.println( "checking mouse listener list..." );
+		for ( MouseListener m : ml ) {
+			System.out.println( "mouse listener: " + m );
+		}
+
         //show the application and request mouse/keyboard focus
 		setVisible(true);
 		wwd.requestFocus();
