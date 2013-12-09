@@ -64,7 +64,7 @@ public class VRAnnotationsLayer extends RenderableLayer {
 
 
 		createExtrudedShapes();     // lww - for extruded shapes
-		makeBrowserBalloon();       // lww - for placemark & balloon
+		//makeBrowserBalloon();       // lww - for placemark & balloon
 	}
 
 	public void prepareForEye(boolean left){
