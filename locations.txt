@@ -1,4 +1,3 @@
 # Comments are ignored
 #Name can be any length, double latitude, double longitude, double height in meters
-CACI, 38.8826,-77.1059, 1500
 NASA Buildings, 47.656, -122.306, 1000
